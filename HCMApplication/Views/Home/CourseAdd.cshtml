@@ -1,0 +1,92 @@
+﻿@*@model IEnumerable<HCMApplication.Models.Course>
+
+@{
+    ViewData["Title"] = "Курсы";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+
+    <title>Курсы HCM</title>
+    <h3>Курсы</h3>
+    <form asp-action="CourseAdd" asp-controller="Home">
+        <div class="row">
+            <div class="col">
+                <p>
+                    <label>Название</label><br />
+                    <input type="text" name="Name" />
+                </p>
+                <p>
+                    <label>Компания</label><br />
+                    <input type="text" name="Company" />
+                </p>
+                <p>
+                    <label>Описание</label><br />
+                    <input type="text" name="Description" />
+                </p>
+                <p>
+                    <label>Автор</label><br />
+                    <input type="text" name="Author" />
+                </p>
+                <p>
+                    <label>Формат курса</label><br />
+                    <select name="CourseFormat" id="courseFormat">
+                        <option value="seminar">Семинар</option>
+                        <option value="lecture">Лекция</option>
+                        <option value="training">Тренинг</option>
+                        <option value="coaching">Коучинг</option>
+                        <option value="roleplay">Ролевые игры</option>
+                        <option value="brainstorm">Мозговой штурм</option>
+                        <option value="caseanalysis">Анализ кейсов</option>
+                    </select>
+                </p>
+            </div>
+            <div class="col">
+                <p>
+                    <label>Срок действия</label><br />
+                    <select name="PeriodOfValidity" id="periodOfValidity">
+                        <option value="halfyear">6 месяцев</option>
+                        <option value="oneyear">1 год</option>
+                        <option value="twoyears">3 года</option>
+                        <option value="fiveyears">5 лет</option>
+                        <option value="tenyears">10 лет</option>
+                    </select>
+                </p>
+                <p>
+                    <label>Период прохождения</label><br />
+                    <select name="Period" id="period">
+                        <option value="twoweeks">2 недели</option>
+                        <option value="onemonth">1 месяц</option>
+                        <option value="threemonth">3 месяца</option>
+                        <option value="sixmonth">6 месяцев</option>
+                        <option value="ninemonth">9 месяцев</option>
+                        <option value="oneyear">1 год</option>
+                    </select>
+                </p>
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Добавить" />
+        </p>
+         Расширенные поля 
+        <div class="form-group">
+            <input type="checkbox" name="seeAnotherField" id="seeAnotherField">
+            <label for="seeAnotherField">Дополнительные поля</label>
+        </div>
+        <div class="form-group" id="otherFieldDiv">
+            <label for="otherField">Период прохождения</label>
+            <br /><select name="Period" id="otherField">
+                <option value="twoweeks">2 недели</option>
+                <option value="onemonth">1 месяц</option>
+                <option value="threemonth">3 месяца</option>
+                <option value="sixmonth">6 месяцев</option>
+                <option value="ninemonth">9 месяцев</option>
+                <option value="oneyear">1 год</option>
+            </select>
+        </div>
+    </form>
+
+<h1>ViewData["Title"]</h1>*@
+
+

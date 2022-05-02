@@ -1,0 +1,132 @@
+﻿@model IEnumerable<HCMApplication.Models.Qualification>
+@{
+    ViewData["Title"] = "Квалификация";
+    Layout = "_Layout";
+}
+@if (User.IsInRole("admin"))
+{
+    <div class="m-1 p-2">
+        <form asp-action="Qualification" method="get" class="form-inline">
+            <label class="m1">Женат/Замужем</label>
+            <select name="courseName" class="form-control">
+                <option value="">Все</option>
+                <option selected="@(ViewBag.courseName=="Лидерские качества")">
+                    Лидерские качества
+                </option>
+                <option selected="@(ViewBag.courseName=="Новые возможности Java")">
+                    Новые возможности Java
+                </option>
+            </select>
+            <label class="m1">Минимальное количество баллов:</label>
+            <input class="form-control" name="grade" value="@ViewBag.grade" />
+            <button class="btn btn-primary m-1">Отфильтровать</button>
+        </form>
+    </div>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Название курса</th>
+                <th>Дата начала</th>
+                <th>Общий балл</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+
+                <tr>
+                    <td>@emp.QualificationId</td>
+                    <td>@emp.FIO</td>
+                    <td>@emp.CourseName</td>
+                    <td>@emp.DateOfStart</td>
+                    <td>@emp.Grade</td>
+                    <td>
+                        <form asp-action="DeleteQualification" method="post">
+                            <a asp-action="EditQualification" class="btn btn-sm btn-warning" asp-route-id="@emp.QualificationId">
+                                Редактировать
+                            </a>
+                            <input type="hidden" name="id" value="@emp.QualificationId" />
+                            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="CreateQualification" class="btn btn-primary">Добавить нового сотрудника</a>
+}
+@if (User.IsInRole("user")) 
+{ 
+    <div class="text-justify">Данная страница недоступна для просмотра роли вашего пользователя</div>
+    <br />
+}
+
+    <!--<div class="text-center">-->
+    @*<h2>Сотрудники</h2>*@
+<!--<h1>@ViewData["Title"]</h1>
+</div>
+<form>
+    <div class="row">
+        <div class="col">
+            <p>
+                <label>ФИО</label><br />
+                <input type="text" name="FIO" />
+            </p>
+            <p>
+                <label>Возраст</label><br />
+                <input type="number" name="Age" />
+            </p>
+            <p>
+                <label>Номер телефона</label><br />
+                <input type="tel" id="phone" name="phone"
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                       required>
+                <small>Format: 700-123-4567</small>
+            </p>
+            <p>
+                <label>E-mail</label><br />
+                <input type="email" id="email" size="30" required>
+            </p>
+            <p>
+                <label>Дата рождения</label><br />
+                <input type="date" name="DateOfBirth" placeholder="dd-mm-yyyy" value="" min="1937-01-01" max="2030-12-31">
+            </p>
+            <p>
+                <label>Адрес</label><br />
+                <input type="text" name="Address" />
+            </p>
+        </div>
+        <div class="col">
+            <p><label>Семейное положение:</label></p>
+            <input type="radio" id="married" name="familystatus" value="married" checked>
+            <label for="married">Замужем/Женат</label>
+            <input type="radio" id="notmarried" name="familystatus" value="notmarried">
+            <label for="notmarried">Не замужем/Не женат</label>
+            <p>
+                <label>Количество детей:</label><br />
+                <input type="number" name="NumberOfChildren" />
+            </p>
+            <p><label>Есть ли льготы:</label></p>
+            <input type="checkbox" id="none" name="none"
+                   checked>
+            <label for="none">Нет</label>
+            <input type="checkbox" id="invalidity" name="invalidity">
+            <label for="invalidity">Инвалидность</label>
+            <input type="checkbox" id="manychildren" name="manychildren">
+            <label for="manychildren">Многодетная семья</label>
+            <p>
+                <input type="submit" value="Добавить" />
+            </p>
+        </div>
+    </div>-->
+@* Расширенные поля *@
+<!--<div class="form-group">
+        <input type="checkbox" name="seeAnotherField" id="seeAnotherField">
+        <label for="seeAnotherField">Do You Want To See Another Field?</label>
+    </div>
+    <div class="form-group" id="otherFieldDiv">
+        <label for="otherField">Here you go!</label>
+    </div>
+</form>-->

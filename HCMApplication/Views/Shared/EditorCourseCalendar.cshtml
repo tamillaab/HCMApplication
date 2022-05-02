@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model HCMApplication.Models.CourseCalendar
+@{
+    ViewData["Title"] = ViewBag.CreateMode ? "CreateCourseCalendar" : "EditCourseCalendar";
+}
+
+<form asp-action="@(ViewBag.CreateMode ? "CreateCourseCalendar" : "EditCourseCalendar")" method="post">
+    <input name="original.CourseCalendarId" value="@Model?.CourseCalendarId" type="hidden" required/>
+    <input name="original.Name" value="@Model?.Name" type="hidden"  />
+    <input name="original.Period" value="@Model?.Period" type="hidden" />
+    <input name="original.Mentor" value="@Model?.Mentor" type="hidden" />
+    <input name="original.Participants" value="@Model?.Participants" type="hidden" />
+    <input name="original.DateOfStart" value="@Model?.DateOfStart" type="hidden" />
+    <div class="form-group">
+        <label asp-for="Name">Название</label>
+        <input asp-for="Name" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Period">Период прохождения</label>
+        <input asp-for="Period" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Mentor">Тренер</label>
+        <input asp-for="Mentor" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Participants">Количество участников</label>
+        <input asp-for="Participants" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfStart">Дата начала</label>
+        <input asp-for="DateOfStart" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <a asp-action="CourseCalendar" class="btn btn-secondary">Отменить</a>
+    </div>
+</form>
