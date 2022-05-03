@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using HCMApplication.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Dynamic;
 
 namespace HCMApplication.Controllers
 {
@@ -142,29 +144,44 @@ namespace HCMApplication.Controllers
             var qualifications = repository.GetFilteredQualifications(courseName, grade);
             ViewBag.courseName = courseName;
             ViewBag.grade = grade;
+            //ViewBag.Employees = repository.GetAllEmployees();
+            //ViewBag.Qualifications = repository.GetAllQualifications();
+
+            //ViewModel mymodel = new ViewModel();
+            //mymodel.Employees = repository.GetAllEmployees();
+            //mymodel.Qualifications = repository.GetAllQualifications();
+            //ViewData["FIO"] = from emp in repository.GetAllEmployees()
+            //                  select new SelectListItem { Text = emp.Name, Value = emp.EmployeeId.ToString() };
             return View(qualifications);
-            //return Content("admin");
         }
 
         public IActionResult CreateQualification()
         {
             ViewBag.CreateMode = true;
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorQualification", new Qualification());
         }
         [HttpPost]
         public IActionResult CreateQualification(Qualification qualification)
         {
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                 select new SelectListItem { Text = emp.Name, Value = emp.Name };
             repository.CreateQualification(qualification);
             return RedirectToAction(nameof(Qualification));
         }
         public IActionResult EditQualification(int id)
         {
             ViewBag.CreateMode = false;
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorQualification", repository.GetQualification(id));
         }
         [HttpPost]
         public IActionResult EditQualification(Qualification qualification, Qualification original)
         {
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
             repository.UpdateQualification(qualification, original);
             return RedirectToAction(nameof(Qualification));
         }

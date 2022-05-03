@@ -18,6 +18,7 @@
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
+          "C:\\Users\\Тамилла\\source\\repos\\HCMApplication\\HCMApplication\\NuGet.Config",
           "C:\\Users\\Тамилла\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

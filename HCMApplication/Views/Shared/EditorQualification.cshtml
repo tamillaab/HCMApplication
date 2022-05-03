@@ -1,34 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@using HCMApplication;
 @model HCMApplication.Models.Qualification
+@{ 
+    IEnumerable<Employee> employees = ViewData["Employees"] as IEnumerable<Employee>;
+    IEnumerable<Qualification> qualifications= ViewData["Qualifications"] as IEnumerable<Qualification>;
+}
+
 @{
     ViewData["Title"] = ViewBag.CreateMode ? "CreateQualification" : "EditQualification";
 }
 
 <form asp-action="@(ViewBag.CreateMode ? "CreateQualification" : "EditQualification")" method="post">
     <input name="original.QualificationId" value="@Model?.QualificationId" type="hidden" />
-    <input name="original.FIO" value="@Model?.FIO" type="hidden" required/>
-    <input name="original.CourseName" value="@Model?.CourseName" type="hidden" required/>
+    <input name="original.FIO" value="@Model?.FIO" type="hidden" required />
+    <input name="original.CourseName" value="@Model?.CourseName" type="hidden" required />
     <input name="original.DateOfStart" value="@Model?.DateOfStart" type="hidden" />
     <input name="original.Grade" value="@Model?.Grade" type="hidden" />
-    <div class="form-group">
+        <div class="form-group">
         <label asp-for="FIO">ФИО</label>
-        @*<input asp-for="FIO" class="form-control" required />*@
-        <select asp-for="FIO" class="form-control">
-            <option value="Анель">Анель</option>
-            <option value="Михаил">Михаил</option>
-            <option value="Рауан">Рауан</option>
-            <option value="Максим">Максим</option>
-            <option value="Мадияр">Мадияр</option>
-            <option value="Сания">Сания</option>
-            <option value="Акнур">Акнур</option>
-            <option value="Ирина">Ирина</option>
+        <select class="form-control" asp-for="FIO" asp-items="@ViewBag.Employees">
         </select>
+        @*@Html.DropDownListFor(model => model.FIO,
+        (IEnumerable<SelectListItem>
+            ) ViewData["FIO"],
+            "choose")*@       
+            @*<select asp-for="FIO" class="form-control">
+                <option value="@emp.Name">@emp.Name</option>
+                <option value="Михаил">Михаил</option>
+                <option value="Рауан">Рауан</option>
+                <option value="Максим">Максим</option>
+                <option value="Мадияр">Мадияр</option>
+                <option value="Сания">Сания</option>
+                <option value="Акнур">Акнур</option>
+                <option value="Ирина">Ирина</option>
+            </select>*@
     </div>
     <div class="form-group">
         <label asp-for="CourseName">Название курса</label>
-        <input asp-for="CourseName" class="form-control" required/>
+        <input asp-for="CourseName" class="form-control" required />
     </div>
     <div class="form-group">
         <label asp-for="DateOfStart">Дата начала</label>
