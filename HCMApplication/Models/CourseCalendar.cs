@@ -9,9 +9,11 @@ namespace HCMApplication.Models
     {
         public int CourseCalendarId { get; set; }
         public string Name { get; set; }
-        public int Period { get; set; }
         public string Mentor { get; set; }
         public int Participants { get; set; }
         public DateTime DateOfStart { get; set; }
+        public DateTime DateOfEnd { get; set; }
+        public string CourseKey { get; set; }
+
     }
 }

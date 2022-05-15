@@ -15,6 +15,8 @@ namespace HCMApplication.Models
         public string Married { get; set; }
         public int Children { get; set; }
         public string Benefits { get; set; }
+        public string TabelId { get; set; }
+        public string Passport { get; set; }
 
     }
 }

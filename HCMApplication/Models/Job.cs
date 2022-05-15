@@ -11,10 +11,8 @@ namespace HCMApplication.Models
         public string FIO { get; set; }
         public string Position { get; set; }
         public string Department { get; set; }
-        public string WorkTime { get; set; }
+        public int Experience { get; set; }
         public DateTime HireDate { get; set; }
-        public string University { get; set; }
-        public int Salary { get; set; }
 
         //ссылка на связанного сотрудника
         //public int EmolyeeId { get; set; }

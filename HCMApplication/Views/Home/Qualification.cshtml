@@ -7,17 +7,19 @@
 {
     <div class="m-1 p-2">
         <form asp-action="Qualification" method="get" class="form-inline">
-            <label class="m1">Женат/Замужем</label>
-            <select name="courseName" class="form-control">
-                <option value="">Все</option>
-                <option selected="@(ViewBag.courseName=="Лидерские качества")">
-                    Лидерские качества
-                </option>
-                <option selected="@(ViewBag.courseName=="Новые возможности Java")">
-                    Новые возможности Java
-                </option>
-            </select>
-            <label class="m1">Минимальное количество баллов:</label>
+            @*<label class="m1">Пройденный курс:  </label>
+        <select name="courseName" class="form-control">
+            <option value="">Все</option>
+            <option selected="@(ViewBag.courseName=="Лидерские качества")">
+                Лидерские качества
+            </option>
+            <option selected="@(ViewBag.courseName=="Новые возможности Java")">
+                Новые возможности Java
+            </option>
+        </select>*@
+            <label class="m1">Введите Табельный номер сотрудника:</label>
+            <input class="form-control" name="FIO" value="@ViewBag.FIO" />
+            <label class="m1">Минимальное количество баллов:  </label>
             <input class="form-control" name="grade" value="@ViewBag.grade" />
             <button class="btn btn-primary m-1">Отфильтровать</button>
         </form>
@@ -40,7 +42,7 @@
                     <td>@emp.QualificationId</td>
                     <td>@emp.FIO</td>
                     <td>@emp.CourseName</td>
-                    <td>@emp.DateOfStart</td>
+                    <td>@emp.DateOfStart.ToShortDateString()</td>
                     <td>@emp.Grade</td>
                     <td>
                         <form asp-action="DeleteQualification" method="post">

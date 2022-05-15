@@ -32,6 +32,8 @@
             <th>Женат/Замужем</th>
             <th>Количество детей</th>
             <th>Льготы</th>
+            <th>Табельный номер</th>
+            <th>Номер удостоверения</th>
 
         </tr>
     </thead>
@@ -39,25 +41,27 @@
         @foreach (var emp in Model)
         {
 
-            <tr>
-                <td>@emp.EmployeeId</td>
-                <td>@emp.Name</td>
-                <td>@emp.PhoneNumber</td>
-                <td>@emp.Email</td>
-                <td>@emp.Address</td>
-                <td>@emp.Married</td>
-                <td>@emp.Children</td>
-                <td>@emp.Benefits</td>
-                <td>
-                    <form asp-action="Delete" method="post">
-                        <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@emp.EmployeeId">
-                            Редактировать
-                        </a>
-                        <input type="hidden" name="id" value="@emp.EmployeeId" />
-                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-                    </form>
-                </td>
-            </tr>
+        <tr>
+            <td>@emp.EmployeeId</td>
+            <td>@emp.Name</td>
+            <td>@emp.PhoneNumber</td>
+            <td>@emp.Email</td>
+            <td>@emp.Address</td>
+            <td>@emp.Married</td>
+            <td>@emp.Children</td>
+            <td>@emp.Benefits</td>
+            <td>@emp.TabelId</td>
+            <td>@emp.Passport</td>
+            <td>
+                <form asp-action="Delete" method="post">
+                    <a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@emp.EmployeeId">
+                        Редактировать
+                    </a>
+                    <input type="hidden" name="id" value="@emp.EmployeeId" />
+                    <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                </form>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

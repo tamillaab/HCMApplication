@@ -7,41 +7,41 @@
 }
 
 <form asp-action="@(ViewBag.CreateMode ? "CreateCourse" : "EditCourse")" method="post">
-    <input name="original.CourseId" value="@Model?.CourseId" type="hidden" required/>
+    <input name="original.CourseId" value="@Model?.CourseId" type="hidden" required />
     <input name="original.Name" value="@Model?.Name" type="hidden" required />
     <input name="original.Description" value="@Model?.Description" type="hidden" required />
     <input name="original.Author" value="@Model?.Author" type="hidden" />
     <input name="original.Format" value="@Model?.Format" type="hidden" />
-    <input name="original.Trainer" value="@Model?.Trainer" type="hidden" />
     <input name="original.Validity" value="@Model?.Validity" type="hidden" />
     <input name="original.Period" value="@Model?.Period" type="hidden" />
+    <input name="original.AddDate" value="@Model?.AddDate" type="hidden" />
     <div class="form-group">
         <label asp-for="Name">Название</label>
-        <input asp-for="Name" class="form-control" required/>
+        <input asp-for="Name" class="form-control" required />
     </div>
     <div class="form-group">
         <label asp-for="Description">Описание</label>
-        <input asp-for="Description" class="form-control" required/>
+        <input asp-for="Description" class="form-control" required />
     </div>
     <div class="form-group">
         <label asp-for="Author">Автор</label>
-        <input asp-for="Author" class="form-control" required/>
+        <input asp-for="Author" class="form-control" required />
     </div>
     <div class="form-group">
         <label asp-for="Format">Формат</label>
         <input asp-for="Format" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Trainer">Тренер</label>
-        <input asp-for="Trainer" class="form-control" />
-    </div>
-    <div class="form-group">
         <label asp-for="Validity">Срок действия</label>
         <input asp-for="Validity" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Period">Период прохождения</label>
+        <label asp-for="Period">Продолжительность</label>
         <input asp-for="Period" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="AddDate">Дата добавления</label>
+        <input asp-for="AddDate" class="form-control" />
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Сохранить</button>

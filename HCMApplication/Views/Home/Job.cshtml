@@ -1,0 +1,73 @@
+﻿@model IEnumerable<HCMApplication.Models.Job>
+@{
+    ViewData["Title"] = "Должности";
+    Layout = "_Layout";
+}
+@if (User.IsInRole("admin"))
+{
+    <div class="m-1 p-2">
+        <form asp-action="Job" method="get" class="form-inline">
+            @*<label class="m1">Должность:  </label>
+        <select name="position" class="form-control">
+            <option value="">Все</option>
+            <option selected="@(ViewBag.position=="Бухгалтер")">
+                Бухгалтер
+            </option>
+            <option selected="@(ViewBag.position=="Java-разработчик")">
+                Java-разработчик
+            </option>
+        </select>
+        <select class="form-control" name="position" asp-items="@ViewBag.Departments">
+            <option value="@ViewBag.Departments">@ViewBag.Departments</option>
+            </select>*@
+            @*<select class="form-control" name="@ViewBag.position" asp-items="@ViewBag.Positions"></select>*@
+            <label class="m1">Введите название Отдела:</label>
+            <input class="form-control" name="department" value="@ViewBag.department" />
+            <label class="m1">Стаж работы:  </label>
+            <input class="form-control" name="experience" value="@ViewBag.experience" />
+            <button class="btn btn-primary m-1">Отфильтровать</button>
+        </form>
+    </div>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Должность</th>
+                <th>Отдел</th>
+                <th>Стаж работы</th>
+                <th>Дата найма</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+
+            <tr>
+                <td>@emp.JobId</td>
+                <td>@emp.FIO</td>
+                <td>@emp.Position</td>
+                <td>@emp.Department</td>
+                <td>@emp.Experience</td>
+                <td>@emp.HireDate.ToShortDateString()</td>
+
+                <td>
+                    <form asp-action="DeleteJob" method="post">
+                        <a asp-action="EditJob" class="btn btn-sm btn-warning" asp-route-id="@emp.JobId">
+                            Редактировать
+                        </a>
+                        <input type="hidden" name="id" value="@emp.JobId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="CreateJob" class="btn btn-primary">Добавить нового сотрудника</a>
+}
+@if (User.IsInRole("user"))
+{
+    <div class="text-justify">Данная страница недоступна для просмотра роли вашего пользователя</div>
+    <br />
+}

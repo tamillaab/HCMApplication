@@ -35,6 +35,7 @@ namespace HCMApplication.Models
         public void CreateEmployee(Employee newEmployee)
         {
             newEmployee.EmployeeId = 0;
+            newEmployee.TabelId = Guid.NewGuid().ToString("N");
             context.Employees.Add(newEmployee);
             context.SaveChanges();
             Console.WriteLine($"New Key: {newEmployee.EmployeeId}");
@@ -56,6 +57,8 @@ namespace HCMApplication.Models
             originalEmployee.Married = changedEmployee.Married;
             originalEmployee.Children = changedEmployee.Children;
             originalEmployee.Benefits = changedEmployee.Benefits;
+            originalEmployee.Passport = changedEmployee.Passport;
+
             context.SaveChanges();
         }
         public void DeleteEmployee(int id)
@@ -73,12 +76,12 @@ namespace HCMApplication.Models
             Console.WriteLine("GetAllCourses");
             return context.Courses;
         }
-        public IEnumerable<Course> GetFilteredCourses(string format = null, int? period = null)
+        public IEnumerable<Course> GetFilteredCourses(string name = null, int? period = null)
         {
             IQueryable<Course> data = context.Courses;
-            if (format != null)
+            if (name != null)
             {
-                data = data.Where(p => p.Format == format);
+                data = data.Where(p => p.Name.Contains(name) || p.Author.Contains(name));
             }
             if (period != null)
             {
@@ -107,9 +110,9 @@ namespace HCMApplication.Models
             originalCourse.Description = changedCourse.Description;
             originalCourse.Author = changedCourse.Author;
             originalCourse.Format = changedCourse.Format;
-            originalCourse.Trainer = changedCourse.Trainer;
             originalCourse.Validity = changedCourse.Validity;
             originalCourse.Period = changedCourse.Period;
+            originalCourse.AddDate = changedCourse.AddDate;
             context.SaveChanges();
         }
         public void DeleteCourse(int id)
@@ -128,12 +131,12 @@ namespace HCMApplication.Models
             Console.WriteLine("GetAllCourses");
             return context.CourseCalendars;
         }
-        public IEnumerable<CourseCalendar> GetFilteredCourseCalendars(string name = null, int? participants = null)
+        public IEnumerable<CourseCalendar> GetFilteredCourseCalendars(string courseKey = null, int? participants = null)
         {
             IQueryable<CourseCalendar> data = context.CourseCalendars;
-            if (name != null)
+            if (courseKey != null)
             {
-                data = data.Where(p => p.Name == name);
+                data = data.Where(p => p.CourseKey.Contains(courseKey));
             }
             if (participants != null)
             {
@@ -141,9 +144,17 @@ namespace HCMApplication.Models
             }
             return data;
         }
+
+        public IEnumerable<Qualification> DetailsCourseCalendar(string courseName, DateTime dateOfStart)
+        {
+            IQueryable<Qualification> data = context.Qualifications.Where(p => p.CourseName == courseName);
+            data = data.Where(p => p.DateOfStart == dateOfStart);
+            return data;
+        }
         public void CreateCourseCalendar(CourseCalendar newCourseCalendar)
         {
             newCourseCalendar.CourseCalendarId = 0;
+            newCourseCalendar.CourseKey = Guid.NewGuid().ToString("N");
             context.CourseCalendars.Add(newCourseCalendar);
             context.SaveChanges();
             Console.WriteLine($"New Key: {newCourseCalendar.CourseCalendarId}");
@@ -159,10 +170,10 @@ namespace HCMApplication.Models
                 context.CourseCalendars.Attach(originalCourseCalendar);
             }
             originalCourseCalendar.Name = changedCourseCalendar.Name;
-            originalCourseCalendar.Period = changedCourseCalendar.Period;
             originalCourseCalendar.Mentor = changedCourseCalendar.Mentor;
             originalCourseCalendar.Participants = changedCourseCalendar.Participants;
             originalCourseCalendar.DateOfStart = changedCourseCalendar.DateOfStart;
+            originalCourseCalendar.DateOfEnd = changedCourseCalendar.DateOfEnd;
             context.SaveChanges();
         }
         public void DeleteCourseCalendar(int id)
@@ -182,12 +193,15 @@ namespace HCMApplication.Models
             Console.WriteLine("GetAllEmployees");
             return context.Qualifications;
         }
-        public IEnumerable<Qualification> GetFilteredQualifications(string courseName = null, int? grade = null)
+        public IEnumerable<Qualification> GetFilteredQualifications(string FIO = null, int? grade = null)
         {
             IQueryable<Qualification> data = context.Qualifications;
-            if (courseName != null)
+            IQueryable<Employee> dataEmp = context.Employees;
+
+            if (FIO != null)
             {
-                data = data.Where(p => p.FIO == courseName);
+                
+                data = data.Where(p =>p.FIO == FIO);
             }
             if (grade != null)
             {
@@ -221,6 +235,61 @@ namespace HCMApplication.Models
         public void DeleteQualification(int id)
         {
             context.Qualifications.Remove(new Qualification{ QualificationId= id });
+            context.SaveChanges();
+        }
+
+        //Job
+        public Job GetJob(int id)
+        {
+            return context.Jobs.Find(id);
+        }
+        public IEnumerable<Job> GetAllJobs()
+        {
+            Console.WriteLine("GetAllJobs");
+            return context.Jobs;
+        }
+        public IEnumerable<Job> GetFilteredJobs(string department = null, int? experience = null)
+        {
+            IQueryable<Job> data = context.Jobs;
+
+            if (department != null)
+            {
+                data = data.Where(p => p.Department.Contains(department));
+            }
+            if (experience != null)
+            {
+                data = data.Where(p => p.Experience >= experience);
+            }
+            return data;
+        }
+        public void CreateJob(Job newJob)
+        {
+            newJob.JobId = 0;
+            context.Jobs.Add(newJob);
+            context.SaveChanges();
+            Console.WriteLine($"New Key: {newJob.JobId}");
+        }
+        public void UpdateJobs(Job changedJob, Job originalJob = null)
+        {
+            if (originalJob == null)
+            {
+                originalJob = context.Jobs.Find(changedJob.JobId);
+            }
+            else
+            {
+                context.Jobs.Attach(originalJob);
+            }
+            originalJob.FIO = changedJob.FIO;
+            originalJob.Position = changedJob.Position;
+            originalJob.Department = changedJob.Department;
+            originalJob.Experience = changedJob.Experience;
+            originalJob.HireDate = changedJob.HireDate;
+
+            context.SaveChanges();
+        }
+        public void DeleteJob(int id)
+        {
+            context.Jobs.Remove(new Job { JobId = id });
             context.SaveChanges();
         }
     }

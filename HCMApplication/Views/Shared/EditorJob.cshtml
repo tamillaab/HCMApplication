@@ -1,0 +1,39 @@
+﻿
+@model HCMApplication.Models.Job
+
+@{
+    ViewData["Title"] = ViewBag.CreateMode ? "CreateJob" : "EditJob";
+}
+
+<form asp-action="@(ViewBag.CreateMode ? "CreateJob" : "EditJob")" method="post">
+    <input name="original.JobId" value="@Model?.JobId" type="hidden" />
+    <input name="original.FIO" value="@Model?.FIO" type="hidden" required />
+    <input name="original.Position" value="@Model?.Position" type="hidden" required />
+    <input name="original.Department" value="@Model?.Department" type="hidden" />
+    <input name="original.Experience" value="@Model?.Experience" type="hidden" />
+    <input name="original.HireDate" value="@Model?.HireDate" type="hidden" />
+    <div class="form-group">
+        <label asp-for="FIO">ФИО</label>
+        <select class="form-control" asp-for="FIO" asp-items="@ViewBag.Employees"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Position">Должность</label>
+        <input asp-for="Position" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Department">Отдел</label>
+        <input asp-for="Department" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Experience">Стаж работы</label>
+        <input asp-for="Experience" class="form-control" type="number" />
+    </div>
+    <div class="form-group">
+        <label asp-for="HireDate">Дата найма</label>
+        <input asp-for="HireDate" class="form-control" type="date" asp-format="{0:dd.MM.yyyy}"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <a asp-action="Job" class="btn btn-secondary">Отменить</a>
+    </div>
+</form>

@@ -7,16 +7,18 @@
 {
     <div class="m-1 p-2">
         <form asp-action="CourseCalendar" method="get" class="form-inline">
-            <label class="m1">Название</label>
-            <select name="name" class="form-control">
-                <option value="">Все</option>
-                <option selected="@(ViewBag.name == "Лидерские качества")">
-                    Лидерские качества
-                </option>
-                <option selected="@(ViewBag.name == "Новые возможности Java")">
-                    Новые возможности Java
-                </option>
-            </select>
+            @*<label class="m1">Название</label>
+        <select name="name" class="form-control">
+            <option value="">Все</option>
+            <option selected="@(ViewBag.name == "Лидерские качества")">
+                Лидерские качества
+            </option>
+            <option selected="@(ViewBag.name == "Новые возможности Java")">
+                Новые возможности Java
+            </option>
+        </select>*@
+            <label class="m1">Введите Ключ курса :</label>
+            <input class="form-control" name="courseKey" value="@ViewBag.courseKey" />
             <label class="m1">Минимальное количество участников:</label>
             <input class="form-control" name="participants" value="@ViewBag.participants" />
             <button class="btn btn-primary m-1">Отфильтровать</button>
@@ -27,32 +29,39 @@
             <tr>
                 <th>ID</th>
                 <th>Название</th>
-                <th>Период прохождения</th>
                 <th>Тренер</th>
                 <th>Количество участников</th>
                 <th>Дата начала</th>
+                <th>Дата завершения</th>
+                <th>Ключ курса</th>
+
             </tr>
         </thead>
         <tbody>
             @foreach (var emp in Model)
             {
-                <tr>
-                    <td>@emp.CourseCalendarId</td>
-                    <td>@emp.Name</td>
-                    <td>@emp.Period</td>
-                    <td>@emp.Mentor</td>
-                    <td>@emp.Participants</td>
-                    <td>@emp.DateOfStart</td>
-                    <td>
-                        <form asp-action="DeleteCourseCalendar" method="post">
-                            <a asp-action="EditCourseCalendar" class="btn btn-sm btn-warning" asp-route-id="@emp.CourseCalendarId">
-                                Редактировать
-                            </a>
-                            <input type="hidden" name="id" value="@emp.CourseCalendarId" />
-                            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-                        </form>
-                    </td>
-                </tr>
+            <tr>
+                <td>@emp.CourseCalendarId</td>
+                <td>@emp.Name</td>
+                <td>@emp.Mentor</td>
+                <td>@emp.Participants</td>
+                <td>@emp.DateOfStart.ToShortDateString()</td>
+                <td>@emp.DateOfEnd.ToShortDateString()</td>
+                <td>@emp.CourseKey</td>
+
+                <td>
+                    <form asp-action="DeleteCourseCalendar" method="post">
+                        <a asp-action="EditCourseCalendar" class="btn btn-sm btn-warning" asp-route-id="@emp.CourseCalendarId">
+                            Редактировать
+                        </a>
+                        <a asp-action="DetailsCourseCalendar" class="btn btn-sm btn-info" asp-route-id="@emp.CourseCalendarId">
+                            Детали
+                        </a>
+                        <input type="hidden" name="id" value="@emp.CourseCalendarId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

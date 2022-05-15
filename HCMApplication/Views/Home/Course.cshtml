@@ -6,8 +6,8 @@
 
 <div class="m-1 p-2">
     <form asp-action="Course" method="get" class="form-inline">
-        <label class="m1">Формат</label>
-        <select name="format" class="form-control">
+        @*<label class="m1">Формат</label>
+        <select name="name" class="form-control">
             <option value="">Все</option>
             <option selected="@(ViewBag.format=="Семинар")">
                 Семинар
@@ -15,7 +15,9 @@
             <option selected="@(ViewBag.format=="Лекция")">
                 Лекция
             </option>
-        </select>
+        </select>*@
+        <label class="m1">Введите Название курса или Автора:</label>
+        <input class="form-control" name="name" value="@ViewBag.name" />
         <label class="m1">Минимальное количество часов:</label>
         <input class="form-control" name="period" value="@ViewBag.period" />
         <button class="btn btn-primary m-1">Отфильтровать</button>
@@ -29,9 +31,9 @@
             <th>Описание</th>
             <th>Автор</th>
             <th>Формат</th>
-            <th>Тренер</th>
             <th>Срок действия</th>
-            <th>Период прохождения</th>
+            <th>Продолжительность(в часах)</th>
+            <th>Дата добавления:</th>
 
         </tr>
     </thead>
@@ -39,25 +41,25 @@
         @foreach (var emp in Model)
         {
 
-            <tr>
-                <td>@emp.CourseId</td>
-                <td>@emp.Name</td>
-                <td>@emp.Description</td>
-                <td>@emp.Author</td>
-                <td>@emp.Format</td>
-                <td>@emp.Trainer</td>
-                <td>@emp.Validity</td>
-                <td>@emp.Period</td>
-                <td>
-                    <form asp-action="DeleteCourse" method="post">
-                        <a asp-action="EditCourse" class="btn btn-sm btn-warning" asp-route-id="@emp.CourseId">
-                            Редактировать
-                        </a>
-                        <input type="hidden" name="id" value="@emp.CourseId" />
-                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-                    </form>
-                </td>
-            </tr>
+        <tr>
+            <td>@emp.CourseId</td>
+            <td>@emp.Name</td>
+            <td>@emp.Description</td>
+            <td>@emp.Author</td>
+            <td>@emp.Format</td>
+            <td>@emp.Validity</td>
+            <td>@emp.Period</td>
+            <td>@emp.AddDate.ToShortDateString()</td>
+            <td>
+                <form asp-action="DeleteCourse" method="post">
+                    <a asp-action="EditCourse" class="btn btn-sm btn-warning" asp-route-id="@emp.CourseId">
+                        Редактировать
+                    </a>
+                    <input type="hidden" name="id" value="@emp.CourseId" />
+                    <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                </form>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

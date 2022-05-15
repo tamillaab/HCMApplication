@@ -16,7 +16,7 @@ namespace HCMApplication.Models
         // Course
         Course GetCourse(int id);
         IEnumerable<Course> GetAllCourses();
-        IEnumerable<Course> GetFilteredCourses(string format = null, int? period = null);
+        IEnumerable<Course> GetFilteredCourses(string name = null, int? period = null);
         void CreateCourse(Course newCourse);
         void UpdateCourse(Course changedCourse, Course originalCourse = null);
         void DeleteCourse(int id);
@@ -24,7 +24,8 @@ namespace HCMApplication.Models
         // CourseCalendar
         CourseCalendar GetCourseCalendar(int id);
         IEnumerable<CourseCalendar> GetAllCourseCalendars();
-        IEnumerable<CourseCalendar> GetFilteredCourseCalendars(string name = null, int? participants = null);
+        IEnumerable<Qualification> DetailsCourseCalendar(string courseName, DateTime dateOfStart);
+        IEnumerable<CourseCalendar> GetFilteredCourseCalendars(string courseKey = null, int? participants = null);
         void CreateCourseCalendar(CourseCalendar newCourseCalendar);
         void UpdateCourseCalendar(CourseCalendar changedCourseCalendar, CourseCalendar originalCourseCalendar = null);
         void DeleteCourseCalendar(int id);
@@ -32,9 +33,16 @@ namespace HCMApplication.Models
         // Qualifications
         Qualification GetQualification(int id);
         IEnumerable<Qualification> GetAllQualifications();
-        IEnumerable<Qualification> GetFilteredQualifications(string courseName = null, int? grade = null);
+        IEnumerable<Qualification> GetFilteredQualifications(string FIO = null, int? grade = null);
         void CreateQualification(Qualification newQualification);
         void UpdateQualification(Qualification changedQualification, Qualification originalQualification = null);
         void DeleteQualification(int id);
+        // Jobs
+        Job GetJob(int id);
+        IEnumerable<Job> GetAllJobs();
+        IEnumerable<Job> GetFilteredJobs(string department = null, int? experience= null);
+        void CreateJob(Job newJob);
+        void UpdateJobs(Job changedJob, Job originalJob = null);
+        void DeleteJob(int id);
     }
 }

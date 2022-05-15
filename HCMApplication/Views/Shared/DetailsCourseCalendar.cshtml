@@ -1,0 +1,45 @@
+﻿@model IEnumerable<HCMApplication.Models.Qualification>
+@{
+    ViewData["Title"] = "Квалификация";
+    Layout = "_Layout";
+}
+@if (User.IsInRole("admin"))
+{
+    <div class="m-1 p-2">
+        <form asp-action="DetailsCourseCalendar" method="get" class="form-inline">
+           
+        </form>
+    </div>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Название курса</th>
+                <th>Дата начала</th>
+                <th>Общий балл</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+
+                <tr>
+                    <td>@emp.QualificationId</td>
+                    <td>@emp.FIO</td>
+                    <td>@emp.CourseName</td>
+                    <td>@emp.DateOfStart.ToShortDateString()</td>
+                    <td>@emp.Grade</td>
+                    @*<td>@Html.DisplayFor(modelItem => emp.FIO)</td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (User.IsInRole("user")) 
+{ 
+    <div class="text-justify">Данная страница недоступна для просмотра роли вашего пользователя</div>
+    <br />
+}
+
+  

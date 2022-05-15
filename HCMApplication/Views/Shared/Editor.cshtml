@@ -8,24 +8,26 @@
 
 <form asp-action="@(ViewBag.CreateMode ? "Create" : "Edit")" method="post">
     <input name="original.EmployeeId" value="@Model?.EmployeeId" type="hidden" />
-    <input name="original.Name" value="@Model?.Name" type="hidden" required/>
-    <input name="original.PhoneNumber" value="@Model?.PhoneNumber" type="hidden" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
+    <input name="original.Name" value="@Model?.Name" type="hidden" required />
+    <input name="original.PhoneNumber" value="@Model?.PhoneNumber" type="hidden" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
     <input name="original.Email" value="@Model?.Email" type="hidden" />
     <input name="original.Address" value="@Model?.Address" type="hidden" />
     <input name="original.Married" value="@Model?.Married" type="hidden" />
     <input name="original.Children" value="@Model?.Children" type="hidden" />
     <input name="original.Benefits" value="@Model?.Benefits" type="hidden" />
+    <input name="original.TableId" value="@Model?.TabelId" type="hidden" />
+    <input name="original.Passport" value="@Model?.Passport" type="hidden" />
     <div class="form-group">
         <label asp-for="Name">ФИО</label>
         <input asp-for="Name" class="form-control" required />
     </div>
     <div class="form-group">
-        <label asp-for="PhoneNumber">Номер телефона</label>
-        <input asp-for="PhoneNumber" class="form-control" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
+        <label asp-for="PhoneNumber">Номер телефона(формат: 777-111-2020)</label>
+        <input asp-for="PhoneNumber" class="form-control" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
     </div>
     <div class="form-group">
         <label asp-for="Email">E-mail</label>
-        <input asp-for="Email" class="form-control" />
+        <input asp-for="Email" class="form-control" type="email" />
     </div>
     <div class="form-group">
         <label asp-for="Address">Адрес</label>
@@ -33,19 +35,42 @@
     </div>
     <div class="form-group">
         <label asp-for="Married">Женат/Замужем</label>
-        <input asp-for="Married" class="form-control" />
+        @*<input asp-for="Married" class="form-control" />*@
+        <div class="form-check">
+            <label class="form-check-label">
+                <input asp-for="Married" class="form-check-input" type="radio" value="да" />да
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input asp-for="Married" class="form-check-input" type="radio" value="нет" />нет
+            </label>
+        </div>
         @*<select asp-for="Married" class="form-control">
-            <option value="Да">Да</option>
-            <option value="Нет">Нет</option>
-        </select>*@
+                <option value="Да">Да</option>
+                <option value="Нет">Нет</option>
+            </select>*@
     </div>
     <div class="form-group">
         <label asp-for="Children">Количество детей</label>
-        <input asp-for="Children" class="form-control" />
+        <input asp-for="Children" class="form-control" type="number" />
     </div>
     <div class="form-group">
         <label asp-for="Benefits">Льготы</label>
-        <input asp-for="Benefits" class="form-control" />
+        <div class="form-check">
+            <label class="form-check-label">
+                <input asp-for="Benefits" class="form-check-input" type="radio" value="да" />да
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input asp-for="Benefits" class="form-check-input" type="radio" value="нет" />нет
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Passport">Номер удостоверения (введите 9 цифр)</label>
+        <input asp-for="Passport" class="form-control" type="text" />
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Сохранить</button>

@@ -64,10 +64,10 @@ namespace HCMApplication.Controllers
         }
 
         //Course
-        public IActionResult Course(string format = null, int? period = null)
+        public IActionResult Course(string name = null, int? period = null)
         {
-            var courses = repository.GetFilteredCourses(format, period);
-            ViewBag.format = format;
+            var courses = repository.GetFilteredCourses(name, period).OrderByDescending(s => s.AddDate);
+            ViewBag.name = name;
             ViewBag.period = period;
             return View(courses);
         }
@@ -102,10 +102,10 @@ namespace HCMApplication.Controllers
         }
         
         // CourseCalendar
-        public IActionResult CourseCalendar(string name = null, int? participants = null)
+        public IActionResult CourseCalendar(string courseKey = null, int? participants = null)
         {
-            var courseCalendars = repository.GetFilteredCourseCalendars(name, participants);
-            ViewBag.name = name;
+            var courseCalendars = repository.GetFilteredCourseCalendars(courseKey, participants);
+            ViewBag.courseKey = courseKey;
             ViewBag.participants = participants;
             return View(courseCalendars);
         }
@@ -132,6 +132,14 @@ namespace HCMApplication.Controllers
             repository.UpdateCourseCalendar(courseCalendar, original);
             return RedirectToAction(nameof(CourseCalendar));
         }
+        public IActionResult DetailsCourseCalendar(int id)
+        {
+            ViewBag.CreateMode = false;
+            DateTime test2 = repository.GetCourseCalendar(id).DateOfStart;
+            String test = repository.GetCourseCalendar(id).Name;
+            var test3 = repository.DetailsCourseCalendar(test, test2);
+            return View(test3);
+        }
         [HttpPost]
         public IActionResult DeleteCourseCalendar(int id)
         {
@@ -139,19 +147,11 @@ namespace HCMApplication.Controllers
             return RedirectToAction(nameof(CourseCalendar));
         }
         // Qualification
-        public IActionResult Qualification(string courseName = null, int? grade = null)
+        public IActionResult Qualification(string FIO = null, int? grade = null)
         {
-            var qualifications = repository.GetFilteredQualifications(courseName, grade);
-            ViewBag.courseName = courseName;
+            var qualifications = repository.GetFilteredQualifications(FIO, grade);
+            ViewBag.FIO = FIO;
             ViewBag.grade = grade;
-            //ViewBag.Employees = repository.GetAllEmployees();
-            //ViewBag.Qualifications = repository.GetAllQualifications();
-
-            //ViewModel mymodel = new ViewModel();
-            //mymodel.Employees = repository.GetAllEmployees();
-            //mymodel.Qualifications = repository.GetAllQualifications();
-            //ViewData["FIO"] = from emp in repository.GetAllEmployees()
-            //                  select new SelectListItem { Text = emp.Name, Value = emp.EmployeeId.ToString() };
             return View(qualifications);
         }
 
@@ -190,6 +190,60 @@ namespace HCMApplication.Controllers
         {
             repository.DeleteQualification(id);
             return RedirectToAction(nameof(Qualification));
+        }
+
+        // Jobs
+        public IActionResult Job(string department = null, int? experience = null)
+        {
+            var jobs = repository.GetFilteredJobs(department, experience);
+            ViewBag.department = department;
+            ViewBag.experience = experience;
+            return View(jobs);
+        }
+
+        public IActionResult CreateJob()
+        {
+            ViewBag.CreateMode = true;
+            ViewBag.Departments = from emp in repository.GetAllJobs()
+                                select new SelectListItem { Text = emp.Department, Value = emp.Department };
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
+            return View("EditorJob", new Job());
+        }
+        [HttpPost]
+        public IActionResult CreateJob(Job job)
+        {
+            ViewBag.Departments = from emp in repository.GetAllJobs()
+                                  select new SelectListItem { Text = emp.Department, Value = emp.Department };
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
+            repository.CreateJob(job);
+            return RedirectToAction(nameof(Job));
+        }
+        public IActionResult EditJob(int id)
+        {
+            ViewBag.CreateMode = false;
+            ViewBag.Departments = from emp in repository.GetAllJobs()
+                                  select new SelectListItem { Text = emp.Department, Value = emp.Department };
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
+            return View("EditorJob", repository.GetJob(id));
+        }
+        [HttpPost]
+        public IActionResult EditJob(Job job, Job original)
+        {
+            ViewBag.Departments = from emp in repository.GetAllJobs()
+                                  select new SelectListItem { Text = emp.Department, Value = emp.Department };
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
+            repository.UpdateJobs(job, original);
+            return RedirectToAction(nameof(Job));
+        }
+        [HttpPost]
+        public IActionResult DeleteJob(int id)
+        {
+            repository.DeleteJob(id);
+            return RedirectToAction(nameof(Job));
         }
 
 
