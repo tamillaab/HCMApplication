@@ -3,48 +3,39 @@
     ViewData["Title"] = "Квалификация";
     Layout = "_Layout";
 }
-@if (User.IsInRole("admin"))
-{
-    <div class="m-1 p-2">
-        <form asp-action="Qualification" method="get" class="form-inline">
-            @*<label class="m1">Пройденный курс:  </label>
-        <select name="courseName" class="form-control">
-            <option value="">Все</option>
-            <option selected="@(ViewBag.courseName=="Лидерские качества")">
-                Лидерские качества
-            </option>
-            <option selected="@(ViewBag.courseName=="Новые возможности Java")">
-                Новые возможности Java
-            </option>
-        </select>*@
-            <label class="m1">Введите Табельный номер сотрудника:</label>
-            <input class="form-control" name="FIO" value="@ViewBag.FIO" />
-            <label class="m1">Минимальное количество баллов:  </label>
-            <input class="form-control" name="grade" value="@ViewBag.grade" />
-            <button class="btn btn-primary m-1">Отфильтровать</button>
-        </form>
-    </div>
-    <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>ФИО</th>
-                <th>Название курса</th>
-                <th>Дата начала</th>
-                <th>Общий балл</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var emp in Model)
-            {
 
-                <tr>
-                    <td>@emp.QualificationId</td>
-                    <td>@emp.FIO</td>
-                    <td>@emp.CourseName</td>
-                    <td>@emp.DateOfStart.ToShortDateString()</td>
-                    <td>@emp.Grade</td>
-                    <td>
+<div class="m-1 p-2">
+    <form asp-action="Qualification" method="get" class="form-inline">
+        <label class="m1">Введите ФИО сотрудника:</label>
+        <input class="form-control" name="FIO" value="@ViewBag.FIO" />
+        <label class="m1">Минимальное количество баллов:  </label>
+        <input class="form-control" name="grade" value="@ViewBag.grade" />
+        <button class="btn btn-primary m-1">Отфильтровать</button>
+    </form>
+</div>
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Название курса</th>
+            <th>Дата завершения</th>
+            <th>Общий балл</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+
+            <tr>
+                <td>@emp.QualificationId</td>
+                <td>@emp.FIO</td>
+                <td>@emp.CourseName</td>
+                <td>@emp.DateOfStart.ToShortDateString()</td>
+                <td>@emp.Grade</td>
+                <td>
+                    @if (User.IsInRole("admin"))
+                    {
                         <form asp-action="DeleteQualification" method="post">
                             <a asp-action="EditQualification" class="btn btn-sm btn-warning" asp-route-id="@emp.QualificationId">
                                 Редактировать
@@ -52,21 +43,38 @@
                             <input type="hidden" name="id" value="@emp.QualificationId" />
                             <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
                         </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    }
+                    @if (User.IsInRole("user"))
+                    {
+                        TimeSpan date = DateTime.Now - @emp.DateOfStart;
+                        if (date.Days <= 7)
+                        {
+                            <a asp-action="CreateCourseTest" class="btn btn-sm btn-info" asp-route-id="@emp.QualificationId">
+                                Оценить курс
+                            </a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (User.IsInRole("admin"))
+{
     <a asp-action="CreateQualification" class="btn btn-primary">Добавить нового сотрудника</a>
-}
-@if (User.IsInRole("user")) 
-{ 
-    <div class="text-justify">Данная страница недоступна для просмотра роли вашего пользователя</div>
-    <br />
+    <a asp-action="CourseTest" class="btn btn-primary">Просмотреть оценки курса</a>
+
 }
 
-    <!--<div class="text-center">-->
-    @*<h2>Сотрудники</h2>*@
+
+@*@if (User.IsInRole("user"))
+    {
+        <div class="text-justify">Данная страница недоступна для просмотра роли вашего пользователя</div>
+        <br />
+    }*@
+
+<!--<div class="text-center">-->
+@*<h2>Сотрудники</h2>*@
 <!--<h1>@ViewData["Title"]</h1>
 </div>
 <form>

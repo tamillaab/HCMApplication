@@ -6,7 +6,7 @@
 
 <div class="m-1 p-2">
     <form asp-action="Employee" method="get" class="form-inline">
-        <label class="m1">Женат/Замужем</label>
+        @*<label class="m1">Женат/Замужем</label>
         <select name="married" class="form-control">
             <option value="">Все</option>
             <option selected="@(ViewBag.married=="нет")">
@@ -15,9 +15,11 @@
             <option selected="@(ViewBag.married=="да")">
                 да
             </option>
-        </select>
-        <label class="m1">Минимальное количество детей:</label>
-        <input class="form-control" name="children" value="@ViewBag.children"/>
+        </select>*@
+        <label class="m1">Введите Почту:</label>
+        <input class="form-control" name="email" value="@ViewBag.email" />
+        <label class="m1">Введите Табельный номер/Номер удостоверения:</label>
+        <input class="form-control" name="number" value="@ViewBag.number" />
         <button class="btn btn-primary m-1">Отфильтровать</button>
     </form>
 </div>

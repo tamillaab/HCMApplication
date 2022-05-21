@@ -1,22 +1,22 @@
-﻿@model IEnumerable<HCMApplication.Models.CourseTest>
+﻿@model IEnumerable<HCMApplication.Models.EmployeeTest>
 @{
-    ViewData["Title"] = "Оценивание курсов";
+    ViewData["Title"] = "Оценивание сотрудников";
     Layout = "_Layout";
 }
 @if (User.IsInRole("admin") || User.IsInRole("user"))
 {
     <div class="m-1 p-2">
-        <form asp-action="CourseTest" method="get" class="form-inline">
+        <form asp-action="EmployeeTest" method="get" class="form-inline">
         </form>
     </div>
     <table class="table table-sm table-striped">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Название курса</th>
                 <th>Оценил сотрудник</th>
                 <th>Табельный номер оценившего:</th>
-                <th>Отзыв</th>
+                <th>ФИО</th>
+                <th>Средний балл оценивания</th>
             </tr>
         </thead>
         <tbody>
@@ -24,18 +24,17 @@
             {
 
                 <tr>
-                    <td>@emp.CourseTestId</td>
-                    <td>@emp.CourseName</td>
+                    <td>@emp.EmpTestId</td>
                     <td>@emp.Author</td>
                     <td>@emp.AuthorId</td>
-                    <td>@emp.Questiont10</td>
+                    <td>@emp.EmployeeName</td>
+                    <td>@emp.Total</td>
                 </tr>
             }
         </tbody>
     </table>
-    <a asp-action="GetStatistics" class="btn btn-info">Просмотреть статистику</a>
+    <a asp-action="CreateEmployeeTest" class="btn btn-primary">Оценить сотрудника</a>
 
-    @*<a asp-action="CreateEmployeeTest" class="btn btn-primary">Оценить сотрудника</a>*@
 }
 
 

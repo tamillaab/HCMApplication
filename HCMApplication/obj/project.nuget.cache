@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "kxzsRPClWrROpmKumhN+xmc0ce0cRbE0J3eNr2snx67JtTZCnD1NdptVEHMQqzgLfsznQmeKY11A0eS010Q7WA==",
+  "dgSpecHash": "M4r+wuy1+aifxWlylkbWF2cDGA5ITshoClpqKlNm3TRv9rbBmnUMlXe29KFUY9zNtycCHgruNnrmhsxATiwnWQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Тамилла\\source\\repos\\HCMApplication\\HCMApplication\\HCMApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Тамилла\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\Тамилла\\.nuget\\packages\\google.datatable.net.wrapper\\4.0.0\\google.datatable.net.wrapper.4.0.0.nupkg.sha512",
     "C:\\Users\\Тамилла\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Тамилла\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\5.0.15\\microsoft.aspnetcore.mvc.razor.extensions.5.0.15.nupkg.sha512",
     "C:\\Users\\Тамилла\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\5.0.15\\microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.15.nupkg.sha512",

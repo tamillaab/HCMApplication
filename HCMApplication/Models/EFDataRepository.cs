@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace HCMApplication.Models
@@ -9,7 +11,21 @@ namespace HCMApplication.Models
     public class EFDataRepository: IDataRepository
     {
         private EFDatabaseContext context;
-        public EFDataRepository(EFDatabaseContext ctx) { context = ctx; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public EFDataRepository(EFDatabaseContext ctx, IHttpContextAccessor httpContextAccessor) { 
+            context = ctx;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+       
+                //public EFDataRepository(IHttpContextAccessor httpContextAccessor)
+        //{
+        //    _httpContextAccessor = httpContextAccessor;
+        //}
+        //public void GetUser()
+        //{
+        //    var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //}
         public Employee GetEmployee(int id)
         {
             return context.Employees.Find(id);
@@ -19,16 +35,16 @@ namespace HCMApplication.Models
             Console.WriteLine("GetAllEmployees");
             return context.Employees;
         }
-        public IEnumerable<Employee> GetFilteredEmployees(string married = null, int? children = null)
+        public IEnumerable<Employee> GetFilteredEmployees(string email = null, string number = null)
         {
             IQueryable<Employee> data = context.Employees;
-            if (married != null)
+            if (email != null)
             {
-                data = data.Where(p => p.Married == married);
+                data = data.Where(p => p.Email.Contains(email));
             }
-            if (children != null)
+            if (number!= null)
             {
-                data = data.Where(p => p.Children >= children);
+                data = data.Where(p => p.TabelId.Contains(number) || p.Passport.Contains(number));
             }
             return data;
         }
@@ -190,8 +206,9 @@ namespace HCMApplication.Models
         }
         public IEnumerable<Qualification> GetAllQualifications()
         {
-            Console.WriteLine("GetAllEmployees");
-            return context.Qualifications;
+            var email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            String author = context.Employees.Where(p => p.Email == email).Select(p => p.Name).FirstOrDefault();
+            return context.Qualifications.Where(p=>p.FIO == author);
         }
         public IEnumerable<Qualification> GetFilteredQualifications(string FIO = null, int? grade = null)
         {
@@ -292,5 +309,52 @@ namespace HCMApplication.Models
             context.Jobs.Remove(new Job { JobId = id });
             context.SaveChanges();
         }
+        // EmployeeTest
+        public EmployeeTest GetEmployeeTest(int id)
+        {
+            return context.EmployeeTests.Find(id);
+        }
+        public IEnumerable<EmployeeTest> GetAllEmployeeTests()
+        {
+            return context.EmployeeTests;
+        }
+
+        public void CreateEmployeeTest(EmployeeTest newEmployeeTest)
+        {
+            newEmployeeTest.EmpTestId = 0;
+            var email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            String author = context.Employees.Where(p => p.Email == email).Select(p=>p.Name).FirstOrDefault();
+            String authorId = context.Employees.Where(p => p.Email == email).Select(p => p.TabelId).FirstOrDefault();
+            newEmployeeTest.Author = author;
+            newEmployeeTest.AuthorId = authorId;
+            newEmployeeTest.Total = (newEmployeeTest.Questiont1 + newEmployeeTest.Questiont2 + newEmployeeTest.Questiont3 + newEmployeeTest.Questiont4 + newEmployeeTest.Questiont5 + newEmployeeTest.Questiont6 + newEmployeeTest.Questiont7 + newEmployeeTest.Questiont8 + newEmployeeTest.Questiont9 + newEmployeeTest.Questiont10)/10;
+            context.EmployeeTests.Add(newEmployeeTest);
+            context.SaveChanges();
+            Console.WriteLine($"New Key: {newEmployeeTest.EmpTestId}");
+        }
+
+        // CourseTest
+        public CourseTest GetCourseTest(int id)
+        {
+            return context.CourseTests.Find(id);
+        }
+        public IEnumerable<CourseTest> GetAllCourseTests()
+        {
+            return context.CourseTests;
+        }
+
+        public void CreateCourseTest(CourseTest newCourseTest, int id)
+        {
+            newCourseTest.CourseTestId = 0;
+            var email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            String author = context.Employees.Where(p => p.Email == email).Select(p => p.Name).FirstOrDefault();
+            String authorId = context.Employees.Where(p => p.Email == email).Select(p => p.TabelId).FirstOrDefault();
+            newCourseTest.Author = author;
+            newCourseTest.AuthorId = authorId;
+            newCourseTest.CourseName = context.Qualifications.Find(id).CourseName;
+            context.CourseTests.Add(newCourseTest);
+            context.SaveChanges();
+        }
+
     }
 }

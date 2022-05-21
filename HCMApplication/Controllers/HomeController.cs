@@ -10,6 +10,10 @@ using HCMApplication.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Dynamic;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Google.DataTable.Net.Wrapper.Extension;
+using Google.DataTable.Net.Wrapper;
 
 namespace HCMApplication.Controllers
 {
@@ -21,16 +25,17 @@ namespace HCMApplication.Controllers
 
         //private EFDatabaseContext context;
         private IDataRepository repository;
-        public HomeController(IDataRepository repo)
+        public HomeController(IDataRepository repo, IHttpContextAccessor httpContextAccessor)
         {
             repository = repo;
         }
+
         // Employee
-        public IActionResult Employee(string married = null, int? children = null)
+        public IActionResult Employee(string email = null, string number = null)
         {
-            var employees = repository.GetFilteredEmployees(married, children);
-            ViewBag.married = married;
-            ViewBag.children = children;
+            var employees = repository.GetFilteredEmployees(email, number);
+            ViewBag.email = email;
+            ViewBag.number = number;
             return View(employees);
         }
 
@@ -113,6 +118,8 @@ namespace HCMApplication.Controllers
         public IActionResult CreateCourseCalendar()
         {
             ViewBag.CreateMode = true;
+            ViewBag.Courses = from emp in repository.GetAllCourses()
+                              select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorCourseCalendar", new CourseCalendar());
         }
         [HttpPost]
@@ -124,6 +131,8 @@ namespace HCMApplication.Controllers
         public IActionResult EditCourseCalendar(int id)
         {
             ViewBag.CreateMode = false;
+            ViewBag.Courses = from emp in repository.GetAllCourses()
+                              select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorCourseCalendar", repository.GetCourseCalendar(id));
         }
         [HttpPost]
@@ -135,7 +144,7 @@ namespace HCMApplication.Controllers
         public IActionResult DetailsCourseCalendar(int id)
         {
             ViewBag.CreateMode = false;
-            DateTime test2 = repository.GetCourseCalendar(id).DateOfStart;
+            DateTime test2 = repository.GetCourseCalendar(id).DateOfEnd;
             String test = repository.GetCourseCalendar(id).Name;
             var test3 = repository.DetailsCourseCalendar(test, test2);
             return View(test3);
@@ -150,6 +159,9 @@ namespace HCMApplication.Controllers
         public IActionResult Qualification(string FIO = null, int? grade = null)
         {
             var qualifications = repository.GetFilteredQualifications(FIO, grade);
+            if (User.IsInRole("user")) {
+                qualifications = repository.GetAllQualifications();
+            }            
             ViewBag.FIO = FIO;
             ViewBag.grade = grade;
             return View(qualifications);
@@ -159,6 +171,8 @@ namespace HCMApplication.Controllers
         {
             ViewBag.CreateMode = true;
             ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
+            ViewBag.Courses = from emp in repository.GetAllCourses()
                                 select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorQualification", new Qualification());
         }
@@ -175,6 +189,8 @@ namespace HCMApplication.Controllers
             ViewBag.CreateMode = false;
             ViewBag.Employees = from emp in repository.GetAllEmployees()
                                 select new SelectListItem { Text = emp.Name, Value = emp.Name };
+            ViewBag.Courses = from emp in repository.GetAllCourses()
+                              select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorQualification", repository.GetQualification(id));
         }
         [HttpPost]
@@ -204,8 +220,6 @@ namespace HCMApplication.Controllers
         public IActionResult CreateJob()
         {
             ViewBag.CreateMode = true;
-            ViewBag.Departments = from emp in repository.GetAllJobs()
-                                select new SelectListItem { Text = emp.Department, Value = emp.Department };
             ViewBag.Employees = from emp in repository.GetAllEmployees()
                                 select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorJob", new Job());
@@ -213,8 +227,6 @@ namespace HCMApplication.Controllers
         [HttpPost]
         public IActionResult CreateJob(Job job)
         {
-            ViewBag.Departments = from emp in repository.GetAllJobs()
-                                  select new SelectListItem { Text = emp.Department, Value = emp.Department };
             ViewBag.Employees = from emp in repository.GetAllEmployees()
                                 select new SelectListItem { Text = emp.Name, Value = emp.Name };
             repository.CreateJob(job);
@@ -223,8 +235,6 @@ namespace HCMApplication.Controllers
         public IActionResult EditJob(int id)
         {
             ViewBag.CreateMode = false;
-            ViewBag.Departments = from emp in repository.GetAllJobs()
-                                  select new SelectListItem { Text = emp.Department, Value = emp.Department };
             ViewBag.Employees = from emp in repository.GetAllEmployees()
                                 select new SelectListItem { Text = emp.Name, Value = emp.Name };
             return View("EditorJob", repository.GetJob(id));
@@ -232,8 +242,6 @@ namespace HCMApplication.Controllers
         [HttpPost]
         public IActionResult EditJob(Job job, Job original)
         {
-            ViewBag.Departments = from emp in repository.GetAllJobs()
-                                  select new SelectListItem { Text = emp.Department, Value = emp.Department };
             ViewBag.Employees = from emp in repository.GetAllEmployees()
                                 select new SelectListItem { Text = emp.Name, Value = emp.Name };
             repository.UpdateJobs(job, original);
@@ -244,6 +252,103 @@ namespace HCMApplication.Controllers
         {
             repository.DeleteJob(id);
             return RedirectToAction(nameof(Job));
+        }
+
+        // EmployeeTest
+        public IActionResult EmployeeTest()
+        {
+            var employeeTests = repository.GetAllEmployeeTests();
+            return View(employeeTests);
+        }
+        public IActionResult CreateEmployeeTest()
+        {
+            ViewBag.CreateMode = true;
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
+
+            return View("EditorEmployeeTest", new EmployeeTest());
+        }
+        [HttpPost]
+        public IActionResult CreateEmployeeTest(EmployeeTest employeeTest)
+        {
+
+            ViewBag.Employees = from emp in repository.GetAllEmployees()
+                                select new SelectListItem { Text = emp.Name, Value = emp.Name };
+            repository.CreateEmployeeTest(employeeTest);
+            return RedirectToAction(nameof(EmployeeTest));
+        }
+        // CourseTest
+        public IActionResult CourseTest()
+        {
+            var courseTests = repository.GetAllCourseTests();
+            return View(courseTests);
+        }
+        //public IActionResult CreateCourseTest(int id)
+        //{
+        //    ViewBag.CreateMode = true;
+        //    ViewBag.Employees = from emp in repository.GetAllEmployees()
+        //                        select new SelectListItem { Text = emp.Name, Value = emp.Name };
+        //    CourseTest courseTest = new CourseTest();
+        //    courseTest.CourseName = repository.GetQualification(id).CourseName;
+        //    return View("EditorEmployeeTest", courseTest);
+        //}
+
+        public IActionResult CreateCourseTest()
+        {
+            ViewBag.CreateMode = true;
+            CourseTest courseTest = new CourseTest();
+            return View("EditorCourseTest", new CourseTest());
+        }
+        [HttpPost]
+        public IActionResult CreateCourseTest(CourseTest courseTest, int id)
+        {
+            repository.CreateCourseTest(courseTest, id);
+            return RedirectToAction(nameof(Qualification));
+        }
+
+        // Testing Pie Chart
+        //public IActionResult GetStatistics()
+        //{
+        //    int number9 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 9).Count();
+        //    int number8 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 8).Count();
+        //    int number7 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 7).Count();
+        //    int number6 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 6).Count();
+        //    int number5 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 5).Count();
+        //    Ratio obj = new Ratio(number9, number8, number7, number6, number5);
+        //    var ans = Json(obj);
+        //    return View(ans);
+        //}
+
+        public JsonResult GetStatistics()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 5).Count() });
+
+            return Json(new { JSONList = list });
+        }
+
+        public ActionResult OnGetChartData()
+        {
+            var pizza = new[]
+            {
+                new {Name = "9 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 9).Count()},
+                new {Name = "8 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 8).Count()},
+                new {Name = "7 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 7).Count()},
+                new {Name = "6 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 6).Count()},
+                new {Name = "5 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 5).Count()}
+            };
+
+            var json = pizza.ToGoogleDataTable()
+                    .NewColumn(new Column(ColumnType.String, "Topping"), x => x.Name)
+                    .NewColumn(new Column(ColumnType.Number, "Slices"), x => x.Count)
+                    .Build()
+                    .GetJson();
+
+            return Content(json);
         }
 
 

@@ -7,16 +7,6 @@
 {
     <div class="m-1 p-2">
         <form asp-action="CourseCalendar" method="get" class="form-inline">
-            @*<label class="m1">Название</label>
-        <select name="name" class="form-control">
-            <option value="">Все</option>
-            <option selected="@(ViewBag.name == "Лидерские качества")">
-                Лидерские качества
-            </option>
-            <option selected="@(ViewBag.name == "Новые возможности Java")">
-                Новые возможности Java
-            </option>
-        </select>*@
             <label class="m1">Введите Ключ курса :</label>
             <input class="form-control" name="courseKey" value="@ViewBag.courseKey" />
             <label class="m1">Минимальное количество участников:</label>

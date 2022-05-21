@@ -1,0 +1,63 @@
+﻿
+@model HCMApplication.Models.EmployeeTest
+
+@{
+    ViewData["Title"] = "Оценивание сотрудника";
+}
+
+<form asp-action="CreateEmployeeTest" method="post">
+    <div class="form-group">
+        <label asp-for="EmployeeName">ФИО</label>
+        <select class="form-control" asp-for="EmployeeName" asp-items="@ViewBag.Employees"></select>
+    </div>
+    <div class="form-group">
+        <label class="text-danger">Отвечая на следующие вопросы, введите цифру от 1-10, учитывая что 1-плохо, 10-отлично.</label>
+        <br />
+        <label asp-for="Questiont1">Проявляет усердие в повседневной работе</label>
+        <input asp-for="Questiont1" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont2">Успевает выполнять работу в срок</label>
+        <input asp-for="Questiont2" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont3">Эффективно работает над несколькими задачами одновременно</label>
+        <input asp-for="Questiont3" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont4">Уважителен в общении с коллегами</label>
+        <input asp-for="Questiont4" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont5">Воспринимает конструктивную критику</label>
+        <input asp-for="Questiont5" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont6">Умеет работать в команде</label>
+        <input asp-for="Questiont6" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont7">Ясно объясняет свои идеи окружающим</label>
+        <input asp-for="Questiont7" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont8">Выполняет работу без ошибок</label>
+        <input asp-for="Questiont8" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont9">Принимает активное участие в развитии команды в рамках компании</label>
+        <input asp-for="Questiont9" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont10">Адаптируется в непредвиденных ситуациях</label>
+        <input asp-for="Questiont10" class="form-control" required/>
+    </div>
+    @*<div class="form-group">
+        <label asp-for="Total">Общий балл</label>
+        <input asp-for="Total" class="form-control" />
+    </div>*@
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <a asp-action="EmployeeTest" class="btn btn-secondary">Отменить</a>
+    </div>
+</form>

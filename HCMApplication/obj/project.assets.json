@@ -24,6 +24,15 @@
           "buildTransitive/netcoreapp3.0/EntityFramework.targets": {}
         }
       },
+      "Google.DataTable.Net.Wrapper/4.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp2.1/Google.DataTable.Net.Wrapper.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/Google.DataTable.Net.Wrapper.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -2223,6 +2232,25 @@
         "tools/netcoreapp3.0/any/ef6.dll",
         "tools/netcoreapp3.0/any/ef6.pdb",
         "tools/netcoreapp3.0/any/ef6.runtimeconfig.json"
+      ]
+    },
+    "Google.DataTable.Net.Wrapper/4.0.0": {
+      "sha512": "rSwTkXozXMqda93fkRpYE9I8vOhm/fzZf2Vww/NGU1ZzjAtiDW0BkaSicPjWVwBbpcp5573I3n1gSmmJJDVzkQ==",
+      "type": "package",
+      "path": "google.datatable.net.wrapper/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "google.datatable.net.wrapper.4.0.0.nupkg.sha512",
+        "google.datatable.net.wrapper.nuspec",
+        "lib/net40/Google.DataTable.Net.Wrapper.dll",
+        "lib/net45/Google.DataTable.Net.Wrapper.dll",
+        "lib/net452/Google.DataTable.Net.Wrapper.dll",
+        "lib/net46/Google.DataTable.Net.Wrapper.dll",
+        "lib/net461/Google.DataTable.Net.Wrapper.dll",
+        "lib/netcoreapp2.0/Google.DataTable.Net.Wrapper.dll",
+        "lib/netcoreapp2.1/Google.DataTable.Net.Wrapper.dll",
+        "lib/netstandard2.0/Google.DataTable.Net.Wrapper.dll"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -7605,6 +7633,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "EntityFramework >= 6.4.4",
+      "Google.DataTable.Net.Wrapper >= 4.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.15",
       "Microsoft.EntityFrameworkCore >= 5.0.16",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.16",
@@ -7665,6 +7694,10 @@
             "target": "Package",
             "version": "[6.4.4, )"
           },
+          "Google.DataTable.Net.Wrapper": {
+            "target": "Package",
+            "version": "[4.0.0, )"
+          },
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",
             "version": "[5.0.15, )"
@@ -7715,7 +7748,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

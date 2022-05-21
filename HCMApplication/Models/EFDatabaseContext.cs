@@ -18,5 +18,8 @@ namespace HCMApplication.Models
     public DbSet<User> Users{ get; set; }
     public DbSet<Role> Roles{ get; set; }
     public DbSet<Job> Jobs { get; set; }
+    public DbSet<EmployeeTest> EmployeeTests { get; set; }
+    public DbSet<CourseTest> CourseTests{ get; set; }
+        
     }
 }

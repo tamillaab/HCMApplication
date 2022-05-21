@@ -1,18 +1,59 @@
-﻿@{
+﻿
+@model HCMApplication.Models.CourseTest
+
+@{
+    ViewData["Title"] = "Оценивание курсов";
 }
 
-<form asp-action="CreateCourseTest" method="get" class="form-inline">
+<form asp-action="CreateCourseTest" method="post">
+    <div class="form-group">
+        <label class="text-danger">Отвечая на следующие вопросы, введите цифру от 1-10, учитывая что 1-плохо, 10-отлично.</label>
+        <br />
+        <label asp-for="Questiont1">Соответствуют ли цели курса полученным результатам</label>
+        <input asp-for="Questiont1" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont2">На сколько удобно время прохождения курса</label>
+        <input asp-for="Questiont2" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont3">Устраивает формат прохождения</label>
+        <input asp-for="Questiont3" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont4">Информация курса соответствует современным тенденциям</label>
+        <input asp-for="Questiont4" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont5">На возникающие вопросы были своевременно предоставлены ответы</label>
+        <input asp-for="Questiont5" class="form-control" required/>
+    </div> 
+    <div class="form-group">
+        <label asp-for="Questiont6">Информация на курсе была предоставлена в понятном виде</label>
+        <input asp-for="Questiont6" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont7">Сможете ли вы применить приобретенные знания на опыте</label>
+        <input asp-for="Questiont7" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont8">Формат курса помог сделать курс наиболее продуктивным</label>
+        <input asp-for="Questiont8" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont9">Соответствуют ли вопросы итогового оценивания пройденному материалу</label>
+        <input asp-for="Questiont9" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Questiont10">Есть ли у вас замечания по поводу курса?</label>
+        <input asp-for="Questiont10" class="form-control" required/>
+    </div>
     @*<div class="form-group">
-        <label asp-for="Benefits">Льготы</label>
-        <div class="form-check">
-            <label class="form-check-label">
-                <input asp-for="Benefits" class="form-check-input" type="radio" value="да" />да
-            </label>
-        </div>
-        <div class="form-check">
-            <label class="form-check-label">
-                <input asp-for="Benefits" class="form-check-input" type="radio" value="нет" />нет
-            </label>
-        </div>
+        <label asp-for="Total">Общий балл</label>
+        <input asp-for="Total" class="form-control" />
     </div>*@
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <a asp-action="Qualification" class="btn btn-secondary">Отменить</a>
+    </div>
 </form>

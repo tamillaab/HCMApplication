@@ -9,7 +9,7 @@ namespace HCMApplication.Models
     {
         Employee GetEmployee(int id);
         IEnumerable<Employee> GetAllEmployees();
-        IEnumerable<Employee> GetFilteredEmployees(string married = null, int? children = null);
+        IEnumerable<Employee> GetFilteredEmployees(string email = null, string number = null);
         void CreateEmployee(Employee newEmployee);
         void UpdateEmployee(Employee changedEmployee, Employee originalEmployee = null);
         void DeleteEmployee(int id);
@@ -44,5 +44,13 @@ namespace HCMApplication.Models
         void CreateJob(Job newJob);
         void UpdateJobs(Job changedJob, Job originalJob = null);
         void DeleteJob(int id);
+        // EmployeeTest
+        EmployeeTest GetEmployeeTest(int id);
+        IEnumerable<EmployeeTest> GetAllEmployeeTests();
+        void CreateEmployeeTest(EmployeeTest newEmployeeTest);
+        // CourseTest
+        CourseTest GetCourseTest(int id);
+        IEnumerable<CourseTest> GetAllCourseTests();
+        void CreateCourseTest(CourseTest newCourseTest, int id);
     }
 }
