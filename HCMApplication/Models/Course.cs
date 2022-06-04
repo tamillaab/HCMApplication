@@ -18,9 +18,5 @@ namespace HCMApplication.Models
         public DateTime AddDate { get; set; }
 
 
-
-
-        //public int CourseCalendarId { get; set; }
-
     }
 }

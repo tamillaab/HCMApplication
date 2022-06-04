@@ -17,15 +17,6 @@ namespace HCMApplication.Models
             _httpContextAccessor = httpContextAccessor;
         }
 
-       
-                //public EFDataRepository(IHttpContextAccessor httpContextAccessor)
-        //{
-        //    _httpContextAccessor = httpContextAccessor;
-        //}
-        //public void GetUser()
-        //{
-        //    var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //}
         public Employee GetEmployee(int id)
         {
             return context.Employees.Find(id);

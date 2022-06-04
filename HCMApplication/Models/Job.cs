@@ -14,9 +14,5 @@ namespace HCMApplication.Models
         public int Experience { get; set; }
         public DateTime HireDate { get; set; }
 
-        //ссылка на связанного сотрудника
-        //public int EmolyeeId { get; set; }
-        //public Employee Employee { get; set; }
-
     }
 }
