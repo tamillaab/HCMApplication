@@ -433,4 +433,5 @@ C:\Users\Тамилла\source\repos\HCMApplication\HCMApplication\obj\Debug\net
 C:\Users\Тамилла\source\repos\HCMApplication\HCMApplication\obj\Debug\net5.0\Razor\Views\Shared\EditorEmployeeTest.cshtml.g.cs
 C:\Users\Тамилла\source\repos\HCMApplication\HCMApplication\obj\Debug\net5.0\Razor\Views\Shared\EditorCourseTest.cshtml.g.cs
 C:\Users\Тамилла\source\repos\HCMApplication\HCMApplication\bin\Debug\net5.0\Google.DataTable.Net.Wrapper.dll
-C:\Users\Тамилла\source\repos\HCMApplication\HCMApplication\obj\Debug\net5.0\Razor\Views\Home\GetStatistics.cshtml.g.cs
+C:\Users\Тамилла\source\repos\HCMApplication\HCMApplication\obj\Debug\net5.0\Razor\Views\Home\ChartQuestion1.cshtml.g.cs
+C:\Users\Тамилла\source\repos\HCMApplication\HCMApplication\obj\Debug\net5.0\Razor\Views\Home\PieCharts.cshtml.g.cs

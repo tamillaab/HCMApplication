@@ -13,6 +13,8 @@ namespace HCMApplication.Models
         public string Description { get; set; }
         public string Author { get; set; }
         public string Format { get; set; }
+        public string Goals { get; set; }
+        public string Indicators { get; set; }
         public string Validity { get; set; }
         public int Period { get; set; }
         public DateTime AddDate { get; set; }

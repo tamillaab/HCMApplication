@@ -118,6 +118,8 @@ namespace HCMApplication.Models
             originalCourse.Author = changedCourse.Author;
             originalCourse.Format = changedCourse.Format;
             originalCourse.Validity = changedCourse.Validity;
+            originalCourse.Goals = changedCourse.Goals;
+            originalCourse.Indicators = changedCourse.Indicators;
             originalCourse.Period = changedCourse.Period;
             originalCourse.AddDate = changedCourse.AddDate;
             context.SaveChanges();

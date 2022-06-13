@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Получение статистики";
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div id="chartdiv" style="width: 600px; height: 350px;">
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(DrawonLoad);
+    function DrawonLoad() {
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetStatistics',
+                success: function (chartsdata) {
+                    var Data = chartsdata.jsonList;
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'AnswerNumb');
+                    data.addColumn('number', 'CountNumb');
+                    for (var i = 0; i < Data.length; i++) {
+                        data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                    }
+                    var chart = new google.visualization.PieChart(document.getElementById('chartdiv'));
+                    chart.draw(data,
+                        {
+                            title: "Статистика результатов оценивания курсов. Вопрос №1 ",
+                            position: "top",
+                            fontsize: "14px"
+                        });
+                },
+                error: function () {
+                    alert('Error loading data! Please try again')
+                }
+            });
+        })
+    }
+</script> 
+}

@@ -305,52 +305,166 @@ namespace HCMApplication.Controllers
             repository.CreateCourseTest(courseTest, id);
             return RedirectToAction(nameof(Qualification));
         }
-
-        // Testing Pie Chart
-        //public IActionResult GetStatistics()
+        // Стастистика Оценивания курсов
+        public IActionResult PieCharts()
+        {
+            return View();
+        }
+        //public IActionResult ChartQuestion1()
         //{
-        //    int number9 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 9).Count();
-        //    int number8 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 8).Count();
-        //    int number7 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 7).Count();
-        //    int number6 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 6).Count();
-        //    int number5 = repository.GetAllCourseTests().Where(x => x.Questiont1 == 5).Count();
-        //    Ratio obj = new Ratio(number9, number8, number7, number6, number5);
-        //    var ans = Json(obj);
-        //    return View(ans);
+        //    return View();
         //}
 
         public JsonResult GetStatistics()
         {
             List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 10).Count() });
             list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 9).Count() });
             list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 8).Count() });
             list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 7).Count() });
             list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 6).Count() });
             list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont1 == 1).Count() });
 
             return Json(new { JSONList = list });
         }
 
-        public ActionResult OnGetChartData()
+        public JsonResult GetStatistics_Sec()
         {
-            var pizza = new[]
-            {
-                new {Name = "9 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 9).Count()},
-                new {Name = "8 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 8).Count()},
-                new {Name = "7 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 7).Count()},
-                new {Name = "6 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 6).Count()},
-                new {Name = "5 баллов", Count = repository.GetAllCourseTests().Where(x => x.Questiont1 == 5).Count()}
-            };
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont2 == 1).Count() });
 
-            var json = pizza.ToGoogleDataTable()
-                    .NewColumn(new Column(ColumnType.String, "Topping"), x => x.Name)
-                    .NewColumn(new Column(ColumnType.Number, "Slices"), x => x.Count)
-                    .Build()
-                    .GetJson();
+            return Json(new { JSONList = list });
+        }
+        public JsonResult GetStatistics_Th()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont3 == 1).Count() });
 
-            return Content(json);
+            return Json(new { JSONList = list });
         }
 
+        public JsonResult GetStatistics_Four()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont4 == 1).Count() });
+
+            return Json(new { JSONList = list });
+        }
+        public JsonResult GetStatistics_Five()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont5 == 1).Count() });
+
+            return Json(new { JSONList = list });
+        }
+
+        public JsonResult GetStatistics_Six()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont6 == 1).Count() });
+
+            return Json(new { JSONList = list });
+        }
+
+        public JsonResult GetStatistics_Sev()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont7 == 1).Count() });
+
+            return Json(new { JSONList = list });
+        }
+
+        public JsonResult GetStatistics_Eight()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont8 == 1).Count() });
+
+            return Json(new { JSONList = list });
+        }
+
+        public JsonResult GetStatistics_Nine()
+        {
+            List<BlogPieChart> list = new List<BlogPieChart>();
+            list.Add(new BlogPieChart { AnswerNumb = "10 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 10).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "9 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 9).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "8 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 8).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "7 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 7).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "6 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 6).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "5 баллов", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "4 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 4).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "3 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 3).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "2 балла", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 5).Count() });
+            list.Add(new BlogPieChart { AnswerNumb = "1 балл", CountNumb = repository.GetAllCourseTests().Where(x => x.Questiont9 == 1).Count() });
+
+            return Json(new { JSONList = list });
+        }
 
         //Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,0 +1,430 @@
+﻿@{
+    ViewData["Title"] = "Получение статистики";
+    Layout = "_Layout";
+}
+<label class="mx-auto">Выберите номер вопроса для просмотра статистики результатов:  </label>
+<br />
+<div class="row ml-2">
+     <button class="btn btn-primary" onclick="help()">Вопрос 1</button>
+    <div class="col-lg-12">
+        <div id="chartdiv" style="width: 600px; height: 350px; display:none"></div>
+    </div>
+</div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        function help() {
+            var x = document.getElementById("chartdiv");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help2() {
+            var x = document.getElementById("chartdiv2");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help3() {
+            var x = document.getElementById("chartdiv3");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help4() {
+            var x = document.getElementById("chartdiv4");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help5() {
+            var x = document.getElementById("chartdiv5");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help6() {
+            var x = document.getElementById("chartdiv6");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help7() {
+            var x = document.getElementById("chartdiv7");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help8() {
+            var x = document.getElementById("chartdiv8");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help9() {
+            var x = document.getElementById("chartdiv9");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+        function help10() {
+            var x = document.getElementById("chartdiv10");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        };
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(DrawonLoad);
+        function DrawonLoad() {
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Home/GetStatistics',
+                    success: function (chartsdata) {
+                        var Data = chartsdata.jsonList;
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'AnswerNumb');
+                        data.addColumn('number', 'CountNumb');
+                        for (var i = 0; i < Data.length; i++) {
+                            data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                        }
+                        var chart = new google.visualization.PieChart(document.getElementById('chartdiv'));
+                        chart.draw(data,
+                            {
+                                title: "Статистика результатов оценивания курсов. Вопрос №1 ",
+                                position: "top",
+                                fontsize: "14px"
+                            });
+                    },
+                    error: function () {
+                        alert('Error loading data! Please try again')
+                    }
+                });
+            })
+        }
+    </script>
+    <br />
+    <div class="row ml-2">
+        <button class="btn btn-primary" onclick="help2()">Вопрос 2</button>
+        <div class="col-lg-12">
+            <div id="chartdiv2" style="width: 600px; height: 350px; display:none"></div>
+        </div>
+    </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Sec',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv2'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №2 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>
+        <br />
+        <div class="row ml-2">
+            <button class="btn btn-primary" onclick="help3()">Вопрос 3</button>
+            <div class="col-lg-12">
+                <div id="chartdiv3" style="width: 600px; height: 350px; display:none"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Th',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv3'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №3 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>
+        <br />
+        <div class="row ml-2">
+            <button class="btn btn-primary" onclick="help4()">Вопрос 4</button>
+            <div class="col-lg-12">
+                <div id="chartdiv4" style="width: 600px; height: 350px; display:none"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Four',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv4'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №4 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>
+        <br />
+        <div class="row ml-2">
+            <button class="btn btn-primary" onclick="help5()">Вопрос 5</button>
+            <div class="col-lg-12">
+                <div id="chartdiv5" style="width: 600px; height: 350px; display:none"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Five',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv5'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №5 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>
+        <br />
+        <div class="row ml-2">
+            <button class="btn btn-primary" onclick="help6()">Вопрос 6</button>
+            <div class="col-lg-12">
+                <div id="chartdiv6" style="width: 600px; height: 350px; display:none"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Five',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv6'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №6 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>
+        <br />
+        <div class="row ml-2">
+            <button class="btn btn-primary" onclick="help7()">Вопрос 7</button>
+            <div class="col-lg-12">
+                <div id="chartdiv7" style="width: 600px; height: 350px; display:none"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Sev',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv7'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №7 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>
+        <br />
+        <div class="row ml-2">
+            <button class="btn btn-primary" onclick="help8()">Вопрос 8</button>
+            <div class="col-lg-12">
+                <div id="chartdiv8" style="width: 600px; height: 350px; display:none"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Eight',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv8'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №8 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>
+        <br />
+        <div class="row ml-2">
+            <button class="btn btn-primary" onclick="help9()">Вопрос 9</button>
+            <div class="col-lg-12">
+                <div id="chartdiv9" style="width: 600px; height: 350px; display:none"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(DrawonLoad);
+            function DrawonLoad() {
+                $(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetStatistics_Nine',
+                        success: function (chartsdata) {
+                            var Data = chartsdata.jsonList;
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'AnswerNumb');
+                            data.addColumn('number', 'CountNumb');
+                            for (var i = 0; i < Data.length; i++) {
+                                data.addRow([Data[i].answerNumb, Data[i].countNumb]);
+                            }
+                            var chart = new google.visualization.PieChart(document.getElementById('chartdiv9'));
+                            chart.draw(data,
+                                {
+                                    title: "Статистика результатов оценивания курсов. Вопрос №9 ",
+                                    position: "top",
+                                    fontsize: "14px"
+                                });
+                        },
+                        error: function () {
+                            alert('Error loading data! Please try again')
+                        }
+                    });
+                })
+            }
+        </script>

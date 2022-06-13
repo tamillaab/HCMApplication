@@ -3,15 +3,16 @@
 
 // Write your JavaScript code.
 
-$("#seeAnotherField").change(function () {
-    if ($(this).is(':checked')) {
-        $('#otherFieldDiv').show();
-        $('#otherField').attr('required', '');
-        $('#otherField').attr('data-error', 'This field is required.');
-    } else {
-        $('#otherFieldDiv').hide();
-        $('#otherField').removeAttr('required');
-        $('#otherField').removeAttr('data-error');
-    }
-});
-$("#seeAnotherField").trigger("change");
+//$("#seeAnotherField").change(function () {
+//    if ($(this).is(':checked')) {
+//        $('#otherFieldDiv').show();
+//        $('#otherField').attr('required', '');
+//        $('#otherField').attr('data-error', 'This field is required.');
+//    } else {
+//        $('#otherFieldDiv').hide();
+//        $('#otherField').removeAttr('required');
+//        $('#otherField').removeAttr('data-error');
+//    }
+//});
+//$("#seeAnotherField").trigger("change");
+

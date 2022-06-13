@@ -12,6 +12,8 @@
     <input name="original.Description" value="@Model?.Description" type="hidden" required />
     <input name="original.Author" value="@Model?.Author" type="hidden" />
     <input name="original.Format" value="@Model?.Format" type="hidden" />
+    <input name="original.Goals" value="@Model?.Goals" type="hidden" />
+    <input name="original.Indicators" value="@Model?.Indicators" type="hidden" />
     <input name="original.Validity" value="@Model?.Validity" type="hidden" />
     <input name="original.Period" value="@Model?.Period" type="hidden" />
     <input name="original.AddDate" value="@Model?.AddDate" type="hidden" />
@@ -30,6 +32,14 @@
     <div class="form-group">
         <label asp-for="Format">Формат</label>
         <input asp-for="Format" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Goals">Цели</label>
+        <input asp-for="Goals" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Indicators">Индикаторы</label>
+        <input asp-for="Indicators" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Validity">Срок действия</label>
